@@ -6,10 +6,15 @@ interface RecipeRequest {
 
 interface Recipe {
   title: string;
+  titleHindi: string;
   ingredients: string[];
+  ingredientsHindi: string[];
   instructions: string[];
+  instructionsHindi: string[];
   prepTime: string;
+  prepTimeHindi: string;
   servings: number;
+  backgroundImage: string;
 }
 
 function generateMockRecipe(ingredients: string[]): Recipe {
@@ -71,7 +76,35 @@ function generateMockRecipe(ingredients: string[]): Recipe {
       ],
       prepTime: '25 minutes',
       prepTimeHindi: '25 मिनट',
-      servings: 4
+      servings: 4,
+      backgroundImage: (() => {
+        const mainIngredient = ingredients[0].toLowerCase();
+        
+        // Comprehensive background mapping
+        const backgroundMap: { [key: string]: string } = {
+          tomato: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop',
+          chicken: 'https://images.unsplash.com/photo-1596797042583-9c066a337777?w=1920&h=1080&fit=crop',
+          egg: 'https://images.unsplash.com/photo-1512156320937-5c6755b13e44?w=1920&h=1080&fit=crop',
+          paneer: 'https://images.unsplash.com/photo-1588166524941-3bf61a939332?w=1920&h=1080&fit=crop',
+          potato: 'https://images.unsplash.com/photo-1571091718805-9c6532a386f7?w=1920&h=1080&fit=crop',
+          onion: 'https://images.unsplash.com/photo-1604537466158-719b1972feb8?w=1920&h=1080&fit=crop',
+          garlic: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=1920&h=1080&fit=crop',
+          rice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop',
+          lentil: 'https://images.unsplash.com/photo-1536304993868-ff468a6c5e62?w=1920&h=1080&fit=crop',
+          vegetable: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&h=1080&fit=crop',
+          spice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop'
+        };
+        
+        // Check each ingredient for matches
+        for (const [key, imageUrl] of Object.entries(backgroundMap)) {
+          if (mainIngredient.includes(key)) {
+            return imageUrl;
+          }
+        }
+        
+        // Default to generic Indian food
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop';
+      })()
     },
     {
       title: `Spicy ${ingredients[0]} Rice`,
@@ -132,7 +165,32 @@ function generateMockRecipe(ingredients: string[]): Recipe {
       ],
       prepTime: '20 minutes',
       prepTimeHindi: '20 मिनट',
-      servings: 4
+      servings: 4,
+      backgroundImage: (() => {
+        const mainIngredient = ingredients[0].toLowerCase();
+        
+        const backgroundMap: { [key: string]: string } = {
+          tomato: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop',
+          chicken: 'https://images.unsplash.com/photo-1596797042583-9c066a337777?w=1920&h=1080&fit=crop',
+          egg: 'https://images.unsplash.com/photo-1512156320937-5c6755b13e44?w=1920&h=1080&fit=crop',
+          paneer: 'https://images.unsplash.com/photo-1588166524941-3bf61a939332?w=1920&h=1080&fit=crop',
+          potato: 'https://images.unsplash.com/photo-1571091718805-9c6532a386f7?w=1920&h=1080&fit=crop',
+          onion: 'https://images.unsplash.com/photo-1604537466158-719b1972feb8?w=1920&h=1080&fit=crop',
+          garlic: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=1920&h=1080&fit=crop',
+          rice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop',
+          lentil: 'https://images.unsplash.com/photo-1536304993868-ff468a6c5e62?w=1920&h=1080&fit=crop',
+          vegetable: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&h=1080&fit=crop',
+          spice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop'
+        };
+        
+        for (const [key, imageUrl] of Object.entries(backgroundMap)) {
+          if (mainIngredient.includes(key)) {
+            return imageUrl;
+          }
+        }
+        
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop';
+      })()
     },
     {
       title: `${ingredients[0]} Dal Tadka`,
@@ -195,7 +253,32 @@ function generateMockRecipe(ingredients: string[]): Recipe {
       ],
       prepTime: '30 minutes',
       prepTimeHindi: '30 मिनट',
-      servings: 4
+      servings: 4,
+      backgroundImage: (() => {
+        const mainIngredient = ingredients[0].toLowerCase();
+        
+        const backgroundMap: { [key: string]: string } = {
+          tomato: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1920&h=1080&fit=crop',
+          chicken: 'https://images.unsplash.com/photo-1596797042583-9c066a337777?w=1920&h=1080&fit=crop',
+          egg: 'https://images.unsplash.com/photo-1512156320937-5c6755b13e44?w=1920&h=1080&fit=crop',
+          paneer: 'https://images.unsplash.com/photo-1588166524941-3bf61a939332?w=1920&h=1080&fit=crop',
+          potato: 'https://images.unsplash.com/photo-1571091718805-9c6532a386f7?w=1920&h=1080&fit=crop',
+          onion: 'https://images.unsplash.com/photo-1604537466158-719b1972feb8?w=1920&h=1080&fit=crop',
+          garlic: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=1920&h=1080&fit=crop',
+          rice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop',
+          lentil: 'https://images.unsplash.com/photo-1536304993868-ff468a6c5e62?w=1920&h=1080&fit=crop',
+          vegetable: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&h=1080&fit=crop',
+          spice: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop'
+        };
+        
+        for (const [key, imageUrl] of Object.entries(backgroundMap)) {
+          if (mainIngredient.includes(key)) {
+            return imageUrl;
+          }
+        }
+        
+        return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop';
+      })()
     }
   ];
 

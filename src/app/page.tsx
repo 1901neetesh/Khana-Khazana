@@ -24,34 +24,34 @@ export default function Home() {
   const [isHindi, setIsHindi] = useState(false);
   const [backgroundTheme, setBackgroundTheme] = useState('default');
 
-  const ingredientThemes: { [key: string]: { image: string; overlay: string } } = {
+const ingredientThemes: { [key: string]: { image: string; overlay: string } } = {
     chicken: { 
-      image: 'https://images.unsplash.com/photo-1582234372742-92e8961b4446?w=1920&h=1080&fit=crop',
-      overlay: 'from-red-900/80 via-orange-900/70 to-yellow-900/60'
+      image: 'https://images.unsplash.com/photo-1596797038594-1019612189b9?w=1920&h=1080&fit=crop',
+      overlay: 'from-red-900/70 via-orange-900/60 to-yellow-900/50'
     },
     vegetable: { 
-      image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1920&h=1080&fit=crop',
-      overlay: 'from-green-900/80 via-emerald-900/70 to-teal-900/60'
+      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&h=1080&fit=crop',
+      overlay: 'from-green-900/70 via-emerald-900/60 to-teal-900/50'
     },
     tomato: { 
-      image: 'https://images.unsplash.com/photo-1546470427-e92b2c9c09d6?w=1920&h=1080&fit=crop',
-      overlay: 'from-red-900/80 via-red-800/70 to-orange-900/60'
+      image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=1920&h=1080&fit=crop',
+      overlay: 'from-red-800/90 via-red-700/80 to-orange-800/70'
     },
     potato: { 
-      image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=1920&h=1080&fit=crop',
-      overlay: 'from-yellow-900/80 via-amber-900/70 to-orange-900/60'
+      image: 'https://images.unsplash.com/photo-1571091718805-9c6532a386f7?w=1920&h=1080&fit=crop',
+      overlay: 'from-yellow-900/70 via-amber-900/60 to-orange-900/50'
     },
     onion: { 
-      image: 'https://images.unsplash.com/photo-1582746467067-bbc87ba62ea5?w=1920&h=1080&fit=crop',
-      overlay: 'from-purple-900/80 via-pink-900/70 to-red-900/60'
+      image: 'https://images.unsplash.com/photo-1604537466158-719b1972feb8?w=1920&h=1080&fit=crop',
+      overlay: 'from-purple-900/70 via-pink-900/60 to-red-900/50'
     },
     garlic: { 
       image: 'https://images.unsplash.com/photo-1551386258-945e9f98c651?w=1920&h=1080&fit=crop',
-      overlay: 'from-gray-900/80 via-gray-800/70 to-slate-900/60'
+      overlay: 'from-gray-900/70 via-gray-800/60 to-slate-900/50'
     },
     rice: { 
       image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1920&h=1080&fit=crop',
-      overlay: 'from-yellow-900/80 via-orange-900/70 to-amber-900/60'
+      overlay: 'from-yellow-900/70 via-orange-900/60 to-amber-900/50'
     },
     paneer: { 
       image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=1920&h=1080&fit=crop',
@@ -59,29 +59,54 @@ export default function Home() {
     },
     lentil: { 
       image: 'https://images.unsplash.com/photo-1586737712304-7f21a1b4c4e9?w=1920&h=1080&fit=crop',
-      overlay: 'from-yellow-900/80 via-orange-900/70 to-red-900/60'
+      overlay: 'from-yellow-900/70 via-orange-900/60 to-red-900/50'
+    },
+    egg: { 
+      image: 'https://images.unsplash.com/photo-1512156320937-5c6755b13e44?w=1920&h=1080&fit=crop',
+      overlay: 'from-yellow-900/70 via-amber-900/60 to-orange-900/50'
     },
     spice: { 
       image: 'https://images.unsplash.com/photo-1532339142463-fd0a8979f1c3?w=1920&h=1080&fit=crop',
-      overlay: 'from-red-900/80 via-orange-900/70 to-yellow-900/60'
+      overlay: 'from-red-900/70 via-orange-900/60 to-yellow-900/50'
     },
     default: { 
       image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&h=1080&fit=crop',
-      overlay: 'from-orange-900/80 via-yellow-900/70 to-saffron-900/60'
+      overlay: 'from-orange-900/70 via-yellow-900/60 to-saffron-900/50'
     }
   };
 
-  useEffect(() => {
+  const [recipeBackground, setRecipeBackground] = useState<string | null>(null);
+
+useEffect(() => {
     const validIngredients = ingredients.filter(ing => ing.trim() !== '');
     if (validIngredients.length > 0) {
-      const firstIngredient = validIngredients[0].toLowerCase();
       let theme = 'default';
       
-      for (const [key, value] of Object.entries(ingredientThemes)) {
-        if (key !== 'default' && firstIngredient.includes(key)) {
-          theme = key;
-          break;
+      // More precise ingredient matching
+      const ingredientMap: { [key: string]: string[] } = {
+        chicken: ['chicken', 'murgi', 'murgh'],
+        vegetable: ['vegetable', 'sabzi', 'veg', 'carrot', 'beans', 'peas', 'cabbage', 'cauliflower', 'spinach', 'ladyfinger'],
+        tomato: ['tomato', 'tamatar', 'tomatoes'],
+        potato: ['potato', 'aloo', 'potatoes'],
+        onion: ['onion', 'pyaz', 'onions'],
+        garlic: ['garlic', 'lahsun'],
+        rice: ['rice', 'chawal', 'basmati'],
+        paneer: ['paneer', 'cottage cheese'],
+        lentil: ['lentil', 'dal', 'masoor', 'toor', 'moong', 'urad'],
+        egg: ['egg', 'ande', 'eggs'],
+        spice: ['spice', 'masala', 'turmeric', 'chili', 'cumin', 'coriander']
+      };
+      
+      // Check all valid ingredients, not just first one
+      for (const ingredient of validIngredients) {
+        const ingredientLower = ingredient.toLowerCase();
+        for (const [key, keywords] of Object.entries(ingredientMap)) {
+          if (keywords.some(keyword => ingredientLower.includes(keyword))) {
+            theme = key;
+            break;
+          }
         }
+        if (theme !== 'default') break;
       }
       
       setBackgroundTheme(theme);
@@ -133,6 +158,7 @@ export default function Home() {
 
       const generatedRecipe = await response.json();
       setRecipe(generatedRecipe);
+      setRecipeBackground(generatedRecipe.backgroundImage);
     } catch (err) {
       setError('Failed to generate recipe. Please try again.');
     } finally {
@@ -157,7 +183,7 @@ export default function Home() {
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: `url(${ingredientThemes[backgroundTheme].image})`,
+            backgroundImage: `url(${recipeBackground || ingredientThemes[backgroundTheme].image})`,
             filter: 'brightness(0.7) contrast(1.1)'
           }}
         />
@@ -453,59 +479,134 @@ export default function Home() {
               </motion.div>
             )}
 
-        {/* Footer */}
+        {/* Premium Footer */}
         <motion.footer 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mt-24"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 1.5, duration: 0.8, ease: "easeOut" }}
         >
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-              <motion.div 
-                className="flex items-center gap-2 text-gray-600"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Copyright className="w-4 h-4" />
-                <span className="text-sm font-medium">
-                  Made by Neetesh Jatav 2025
+          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-12">
+            {/* Copyright Section */}
+            <motion.div 
+              className="text-center mb-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.6, duration: 0.6 }}
+            >
+              <div className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                <Copyright className="w-5 h-5 text-white/80" />
+                <span className="text-white font-light tracking-wide">
+                  Crafted with passion by Neetesh Jatav
                 </span>
-              </motion.div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <span className="text-white/60 font-light">2025</span>
+              </div>
+            </motion.div>
+
+            {/* Divider */}
+            <motion.div 
+              className="relative mb-10"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ delay: 1.8, duration: 1.2, ease: "easeOut" }}
+            >
+              <div className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            </motion.div>
+
+            {/* Contact Section */}
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2, duration: 0.8 }}
+            >
+              {/* Email 1 */}
               <motion.a
                 href="mailto:neeteshjatav11@gmail.com"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="group relative overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-500"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Mail className="w-4 h-4" />
-                <span className="text-sm font-medium">neeteshjatav11@gmail.com</span>
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/80 text-sm mb-1">Primary Email</p>
+                    <p className="text-white font-mono text-sm">neeteshjatav11@gmail.com</p>
+                  </div>
+                </div>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  initial={{ x: -100 }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.6 }}
+                />
               </motion.a>
-              
+
+              {/* Email 2 */}
               <motion.a
                 href="mailto:neeteshjatav19@gmail.com"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="group relative overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-500"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Mail className="w-4 h-4" />
-                <span className="text-sm font-medium">neeteshjatav19@gmail.com</span>
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/80 text-sm mb-1">Alternate Email</p>
+                    <p className="text-white font-mono text-sm">neeteshjatav19@gmail.com</p>
+                  </div>
+                </div>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  initial={{ x: -100 }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.6 }}
+                />
               </motion.a>
-              
+
+              {/* WhatsApp */}
               <motion.a
                 href="https://wa.me/918103054195"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="group relative overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-500"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <MessageCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">WhatsApp</span>
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white/80 text-sm mb-1">Instant Connect</p>
+                    <p className="text-white font-mono text-sm">+91 81030 54195</p>
+                  </div>
+                </div>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  initial={{ x: -100 }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.6 }}
+                />
               </motion.a>
-            </div>
+            </motion.div>
+
+            {/* Bottom decoration */}
+            <motion.div 
+              className="mt-12 text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.2, duration: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2 px-6 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-white/60 text-sm">Available for freelance projects</span>
+              </div>
+            </motion.div>
           </div>
         </motion.footer>
       </div>
