@@ -230,9 +230,9 @@ export default function Home() {
         >
           <div className="inline-flex items-center justify-center mb-6">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 px-8 py-6 rounded-2xl">
-              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight font-serif">
-                Indian Recipe Generator
-              </h1>
+               <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight font-serif">
+                 Khana Khazana by Neetesh
+               </h1>
               <motion.div
                 className="h-1 bg-gradient-to-r from-transparent via-white to-transparent mt-4"
                 initial={{ width: 0 }}

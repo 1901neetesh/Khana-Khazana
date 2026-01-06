@@ -18,8 +18,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Khana by Neetesh",
-  description: "AI powered Recipe Generator",
+  title: "Khana Khazana by Neetesh",
+  description: "AI powered Indian Recipe Generator by Neetesh",
 };
 
 export default function RootLayout({

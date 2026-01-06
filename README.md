@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Khana Khazana by Neetesh
+
+AI-powered Indian Recipe Generator that creates delicious recipes based on your available ingredients.
 
 ## Getting Started
 
