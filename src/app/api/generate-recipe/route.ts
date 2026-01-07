@@ -18,7 +18,6 @@ interface Recipe {
 }
 
 function generateMockRecipe(ingredients: string[]): Recipe {
-  const ingredientList = ingredients.join(', ');
   
   const recipes = [
     {
