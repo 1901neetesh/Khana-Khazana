@@ -44,7 +44,7 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [isReading, setIsReading] = useState(false);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
-  
+
   const [favorites, setFavorites] = useState<Recipe[]>([]);
   const [history, setHistory] = useState<Recipe[]>([]);
   const [adjustedServings, setAdjustedServings] = useState<number>(1);
@@ -82,10 +82,10 @@ export default function Home() {
     const loadVoices = () => {
       window.speechSynthesis.getVoices();
     };
-    
+
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
-    
+
     return () => {
       window.speechSynthesis.onvoiceschanged = null;
       if (isReading) {
@@ -173,30 +173,30 @@ export default function Home() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.85;
     utterance.pitch = 1;
-    
+
     const voices = window.speechSynthesis.getVoices();
     const preferredLang = isHindi ? 'hi-IN' : 'en-IN';
-    
-    let indianVoice = voices.find(voice => 
-      voice.lang.toLowerCase().includes('hi-in') || 
+
+    let indianVoice = voices.find(voice =>
+      voice.lang.toLowerCase().includes('hi-in') ||
       voice.lang.toLowerCase().includes('en-in')
     );
-    
+
     if (!indianVoice) {
-      indianVoice = voices.find(voice => 
+      indianVoice = voices.find(voice =>
         voice.name.toLowerCase().includes('indian') ||
         voice.name.toLowerCase().includes('hindi')
       );
     }
-    
+
     if (!indianVoice) {
-      indianVoice = voices.find(voice => 
+      indianVoice = voices.find(voice =>
         voice.lang.startsWith('hi') ||
         voice.lang.startsWith('en-IN') ||
         voice.lang.startsWith('en_GB')
       );
     }
-    
+
     if (indianVoice) {
       utterance.voice = indianVoice;
       utterance.lang = indianVoice.lang;
@@ -205,7 +205,7 @@ export default function Home() {
     } else {
       utterance.lang = 'en-IN';
     }
-    
+
     utterance.onend = () => {
       setIsReading(false);
     };
@@ -280,7 +280,7 @@ export default function Home() {
   const toggleFavorite = () => {
     hapticFeedback();
     if (!recipe) return;
-    
+
     const isFavorite = favorites.some(fav => fav.id === recipe.id);
     if (isFavorite) {
       setFavorites(favorites.filter(fav => fav.id !== recipe.id));
@@ -362,10 +362,10 @@ export default function Home() {
     if (!recipe || !recipeNotes.trim()) return;
     hapticFeedback();
     const updatedRecipe = { ...recipe, notes: recipeNotes };
-    const updatedFavorites = favorites.map(fav => 
+    const updatedFavorites = favorites.map(fav =>
       fav.id === recipe.id ? updatedRecipe : fav
     );
-    const updatedHistory = history.map(h => 
+    const updatedHistory = history.map(h =>
       h.id === recipe.id ? updatedRecipe : h
     );
     setFavorites(updatedFavorites);
@@ -377,10 +377,10 @@ export default function Home() {
     if (!recipe) return;
     hapticFeedback();
     const updatedRecipe = { ...recipe, rating };
-    const updatedFavorites = favorites.map(fav => 
+    const updatedFavorites = favorites.map(fav =>
       fav.id === recipe.id ? updatedRecipe : fav
     );
-    const updatedHistory = history.map(h => 
+    const updatedHistory = history.map(h =>
       h.id === recipe.id ? updatedRecipe : h
     );
     setFavorites(updatedFavorites);
@@ -391,18 +391,18 @@ export default function Home() {
 
   const calculateNutrition = () => {
     if (!recipe) return { calories: 0, protein: 0, carbs: 0, fat: 0 };
-    
+
     const ingredients = isHindi ? recipe.ingredientsHindi : recipe.ingredients;
     let calories = 0, protein = 0, carbs = 0, fat = 0;
-    
+
     ingredients.forEach(ing => {
       const match = ing.match(/^([\d/]+)\s*(.+)/);
       if (match) {
         const [, amountStr, item] = match;
         const amount = eval(amountStr);
-        
+
         const itemLower = item.toLowerCase();
-        
+
         if (itemLower.includes('chicken')) {
           calories += amount * 165;
           protein += amount * 31;
@@ -445,7 +445,7 @@ export default function Home() {
     const randomCount = Math.floor(Math.random() * 3) + 2;
     const shuffled = [...randomIngredients].sort(() => 0.5 - Math.random());
     const selectedIngredients = shuffled.slice(0, randomCount);
-    
+
     setIngredients(selectedIngredients);
     setLoading(true);
     setError('');
@@ -478,9 +478,9 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen py-4 sm:py-8 px-3 sm:px-4 lg:px-8 transition-colors duration-500 ${
-      isVeg === true 
-        ? 'bg-gradient-to-b from-green-50 to-white dark:from-green-950 dark:to-gray-950' 
-        : isVeg === false 
+      isVeg === true
+        ? 'bg-gradient-to-b from-green-50 to-white dark:from-green-950 dark:to-gray-950'
+        : isVeg === false
           ? 'bg-gradient-to-b from-red-50 to-white dark:from-red-950 dark:to-gray-950'
           : 'bg-gradient-to-b from-orange-50 to-white dark:from-orange-950 dark:to-gray-950'
     }`}>
@@ -1047,7 +1047,7 @@ export default function Home() {
               <Badge variant="secondary" className="px-4 py-2 sm:px-6 sm:py-3 text-sm">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <Copyright className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="text-xs sm:text-sm">Crafted with passion by Neetesh Jatav</span>
+                  <span className="text-xs sm:text-sm">Crafted with passion by Neetesh</span>
                   <span className="text-muted-foreground text-xs sm:text-sm">2025</span>
                 </div>
               </Badge>
